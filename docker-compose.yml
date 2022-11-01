@@ -1,0 +1,56 @@
+version: "3.7"
+services:
+  db_customer:
+    image: mongo
+    container_name: db_customer
+    environment:
+      - "MONGO_INITDB_DATABASE=db_customer"
+    ports:
+      - "27017:27017"
+    volumes:
+      - ~/Desktop/Bootcamp/Mongodb/db_customer:/data/db
+  db_product:
+    image: mongo
+    container_name: db_product
+    environment:
+      - "MONGO_INITDB_DATABASE=db_product"
+    ports:
+      - "27018:27017"
+    volumes:
+      - ~/Desktop/Bootcamp/Mongodb/db_product:/data/db
+  db_customerProduct:
+    image: mongo
+    container_name: db_customerProduct
+    environment:
+      - "MONGO_INITDB_DATABASE=db_customerProduct"
+    ports:
+      - "27019:27017"
+    volumes:
+      - ~/Desktop/Bootcamp/Mongodb/db_customerProduct:/data/db
+  db_operation:
+    image: mongo
+    container_name: db_operation
+    environment:
+      - "MONGO_INITDB_DATABASE=db_operation"
+    ports:
+      - "27020:27017"
+    volumes:
+      - ~/Desktop/Bootcamp/Mongodb/db_operation:/data/db
+  db_shopping:
+    image: mongo
+    container_name: db_shopping
+    environment:
+      - "MONGO_INITDB_DATABASE=db_shopping"
+    ports:
+      - "27021:27017"
+    volumes:
+      - ~/Desktop/Bootcamp/Mongodb/db_shopping:/data/db
+  db_payment:
+    image: mongo
+    container_name: db_payment
+    environment:
+      - "MONGO_INITDB_DATABASE=db_payment"
+    ports:
+      - "27022:27017"
+    volumes:
+      - ~/Desktop/Bootcamp/Mongodb/db_payment:/data/db
