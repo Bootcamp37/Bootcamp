@@ -59,6 +59,16 @@ services:
     container_name: ms-configserver
     ports:
       - "8888:8888"
+  ms-discovery:
+    image: ms-discovery
+    container_name: ms-discovery
+    ports:
+      - "8889:8889"
+  ms-api-gateway:
+    image: ms-api-gateway
+    container_name: ms-api-gateway
+    ports:
+      - "8000:8000"
   ms-customer:
     image: ms-customer
     container_name: ms-customer
@@ -67,6 +77,7 @@ services:
     depends_on:
       - db_customer
       - ms-configserver
+      - ms-discovery
   ms-product:
     image: ms-product
     container_name: ms-product
@@ -75,6 +86,7 @@ services:
     depends_on:
       - db_product
       - ms-configserver
+      - ms-discovery
   ms-customerproduct:
     image: ms-customerproduct
     container_name: ms-customerproduct
@@ -83,6 +95,7 @@ services:
     depends_on:
       - db_customerProduct
       - ms-configserver
+      - ms-discovery
   ms-operation:
     image: ms-operation
     container_name: ms-operation
@@ -91,6 +104,7 @@ services:
     depends_on:
       - db_operation
       - ms-configserver
+      - ms-discovery
   ms-shopping:
     image: ms-shopping
     container_name: ms-shopping
@@ -99,6 +113,7 @@ services:
     depends_on:
       - db_shopping
       - ms-configserver
+      - ms-discovery
   ms-payment:
     image: ms-payment
     container_name: ms-payment
@@ -107,6 +122,7 @@ services:
     depends_on:
       - db_payment
       - ms-configserver
+      - ms-discovery
   ms-querybalance:
     image: ms-querybalance
     container_name: ms-querybalance
@@ -114,8 +130,4 @@ services:
       - "8086:8086"
     depends_on:
       - ms-configserver
-  ms-discovery:
-    image: ms-discovery
-    container_name: ms-discovery
-    ports:
-      - "8889:8889"
+      - ms-discovery
