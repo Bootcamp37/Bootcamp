@@ -54,3 +54,68 @@ services:
       - "27022:27017"
     volumes:
       - ~/Desktop/Bootcamp/Mongodb/db_payment:/data/db
+  ms-configserver:
+    image: ms-configserver
+    container_name: ms-configserver
+    ports:
+      - "8888:8888"
+  ms-customer:
+    image: ms-customer
+    container_name: ms-customer
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db_customer
+      - ms-configserver
+  ms-product:
+    image: ms-product
+    container_name: ms-product
+    ports:
+      - "8081:8081"
+    depends_on:
+      - db_product
+      - ms-configserver
+  ms-customerproduct:
+    image: ms-customerproduct
+    container_name: ms-customerproduct
+    ports:
+      - "8082:8082"
+    depends_on:
+      - db_customerProduct
+      - ms-configserver
+  ms-operation:
+    image: ms-operation
+    container_name: ms-operation
+    ports:
+      - "8083:8083"
+    depends_on:
+      - db_operation
+      - ms-configserver
+  ms-shopping:
+    image: ms-shopping
+    container_name: ms-shopping
+    ports:
+      - "8084:8084"
+    depends_on:
+      - db_shopping
+      - ms-configserver
+  ms-payment:
+    image: ms-payment
+    container_name: ms-payment
+    ports:
+      - "8085:8085"
+    depends_on:
+      - db_payment
+      - ms-configserver
+  ms-querybalance:
+    image: ms-querybalance
+    container_name: ms-querybalance
+    ports:
+      - "8086:8086"
+    depends_on:
+      - ms-configserver
+  ms-discovery:
+    image: ms-discovery
+    container_name: ms-discovery
+    ports:
+      - "8889:8889"
