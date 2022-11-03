@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="sonar-scanner-cli-4.7.0.2747">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/sonar-scanner-4.7.0.2747-windows/lib/sonar-scanner-cli-4.7.0.2747.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

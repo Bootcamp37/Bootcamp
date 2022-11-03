@@ -31,6 +31,10 @@ spring:
         id: querybalance-service
         uri: lb://QUERY-BALANCE-SERVICE
         predicates[0]: Path=/api/v1/balance/**
+      routes[7]:
+        id: wiretransfer-service
+        uri: lb://WIRE-TRANSFER-SERVICE
+        predicates[0]: Path=/api/v1/wiretransfer/**
     loadbalancer:
       ribbon:
         enabled: false
