@@ -20,19 +20,6 @@ services:
     depends_on:
       - ms-configserver
       - ms-discovery
-  db_customer:
-    image: mongo
-    container_name: db_customer
-    environment:
-      - "MONGO_INITDB_DATABASE=db_customer"
-    ports:
-      - "27017:27017"
-    volumes:
-      - ~/Desktop/Bootcamp/Mongodb/db_customer:/data/db
-    depends_on:
-      - ms-configserver
-      - ms-discovery
-      - ms-api-gateway
   ms-customer:
     image: pedrodiaz/ms-customer:v1
     container_name: ms-customer
@@ -42,39 +29,11 @@ services:
       - ms-configserver
       - ms-discovery
       - ms-api-gateway
-      - db_customer
-  db_product:
-    image: mongo
-    container_name: db_product
-    environment:
-      - "MONGO_INITDB_DATABASE=db_product"
-    ports:
-      - "27018:27017"
-    volumes:
-      - ~/Desktop/Bootcamp/Mongodb/db_product:/data/db
-    depends_on:
-      - ms-configserver
-      - ms-discovery
-      - ms-api-gateway
   ms-product:
     image: pedrodiaz/ms-product:v1
     container_name: ms-product
     ports:
       - "8081:8080"
-    depends_on:
-      - ms-configserver
-      - ms-discovery
-      - ms-api-gateway
-      - db_product
-  db_customerProduct:
-    image: mongo
-    container_name: db_customerProduct
-    environment:
-      - "MONGO_INITDB_DATABASE=db_customerProduct"
-    ports:
-      - "27019:27017"
-    volumes:
-      - ~/Desktop/Bootcamp/Mongodb/db_customerProduct:/data/db
     depends_on:
       - ms-configserver
       - ms-discovery
@@ -90,20 +49,6 @@ services:
       - ms-api-gateway
       - ms-customer
       - ms-product
-      - db_customerProduct
-  db_operation:
-    image: mongo
-    container_name: db_operation
-    environment:
-      - "MONGO_INITDB_DATABASE=db_operation"
-    ports:
-      - "27020:27017"
-    volumes:
-      - ~/Desktop/Bootcamp/Mongodb/db_operation:/data/db
-    depends_on:
-      - ms-configserver
-      - ms-discovery
-      - ms-api-gateway
   ms-operation:
     image: pedrodiaz/ms-operation:v1
     container_name: ms-operation
@@ -116,20 +61,6 @@ services:
       - ms-customer
       - ms-product
       - ms-customerproduct
-      - db_operation
-  db_shopping:
-    image: mongo
-    container_name: db_shopping
-    environment:
-      - "MONGO_INITDB_DATABASE=db_shopping"
-    ports:
-      - "27021:27017"
-    volumes:
-      - ~/Desktop/Bootcamp/Mongodb/db_shopping:/data/db
-    depends_on:
-      - ms-configserver
-      - ms-discovery
-      - ms-api-gateway
   ms-shopping:
     image: pedrodiaz/ms-shopping:v1
     container_name: ms-shopping
@@ -142,20 +73,6 @@ services:
       - ms-customer
       - ms-product
       - ms-customerproduct
-      - db_shopping
-  db_payment:
-    image: mongo
-    container_name: db_payment
-    environment:
-      - "MONGO_INITDB_DATABASE=db_payment"
-    ports:
-      - "27022:27017"
-    volumes:
-      - ~/Desktop/Bootcamp/Mongodb/db_payment:/data/db
-    depends_on:
-      - ms-configserver
-      - ms-discovery
-      - ms-api-gateway
   ms-payment:
     image: pedrodiaz/ms-payment:v1
     container_name: ms-payment
@@ -168,7 +85,6 @@ services:
       - ms-customer
       - ms-product
       - ms-customerproduct
-      - db_payment
   ms-querybalance:
     image: pedrodiaz/ms-querybalance:v1
     container_name: ms-querybalance

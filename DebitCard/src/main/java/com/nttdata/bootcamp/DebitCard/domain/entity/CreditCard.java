@@ -6,4 +6,5 @@ public class CreditCard {
     @Id
     private String id;
     private String customerId;
+    private String CustomerPassiveProduct;
 }
