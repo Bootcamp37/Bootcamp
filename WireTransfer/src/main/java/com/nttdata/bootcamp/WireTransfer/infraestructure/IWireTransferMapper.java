@@ -1,8 +1,14 @@
-package com.nttdata.bootcamp.WireTransfer.infraestructure;
+package com.nttdata.bootcamp.wiretransfer.infraestructure;
 
-import com.nttdata.bootcamp.WireTransfer.domain.dto.WireTransferRequest;
-import com.nttdata.bootcamp.WireTransfer.domain.dto.WireTransferResponse;
+import com.nttdata.bootcamp.wiretransfer.domain.dto.WireTransferRequest;
+import com.nttdata.bootcamp.wiretransfer.domain.dto.WireTransferResponse;
 
+/**
+ * Interfaz para el WireTransferMapper.
+ *
+ * @author Pedro Manuel Díaz Santa María
+ * @version 1.0.0
+ */
 public interface IWireTransferMapper {
-    WireTransferResponse toResponse(WireTransferRequest request);
+  WireTransferResponse toResponse(WireTransferRequest request);
 }

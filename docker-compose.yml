@@ -1,20 +1,25 @@
 version: "3.7"
 services:
   ms-configserver:
-    image: ms-configserver
+    image: pedrodiaz/ms-configserver:v1
     container_name: ms-configserver
     ports:
       - "8888:8888"
   ms-discovery:
-    image: ms-discovery
+    image: pedrodiaz/ms-discovery:v1
     container_name: ms-discovery
     ports:
       - "8889:8889"
+    depends_on:
+      - ms-configserver
   ms-api-gateway:
-    image: ms-api-gateway
+    image: pedrodiaz/ms-api-gateway:v1
     container_name: ms-api-gateway
     ports:
       - "8000:8000"
+    depends_on:
+      - ms-configserver
+      - ms-discovery
   db_customer:
     image: mongo
     container_name: db_customer
@@ -29,11 +34,14 @@ services:
       - ms-discovery
       - ms-api-gateway
   ms-customer:
-    image: ms-customer
+    image: pedrodiaz/ms-customer:v1
     container_name: ms-customer
     ports:
       - "8080:8080"
     depends_on:
+      - ms-configserver
+      - ms-discovery
+      - ms-api-gateway
       - db_customer
   db_product:
     image: mongo
@@ -49,11 +57,14 @@ services:
       - ms-discovery
       - ms-api-gateway
   ms-product:
-    image: ms-product
+    image: pedrodiaz/ms-product:v1
     container_name: ms-product
     ports:
       - "8081:8080"
     depends_on:
+      - ms-configserver
+      - ms-discovery
+      - ms-api-gateway
       - db_product
   db_customerProduct:
     image: mongo
@@ -69,14 +80,17 @@ services:
       - ms-discovery
       - ms-api-gateway
   ms-customerproduct:
-    image: ms-customerproduct
+    image: pedrodiaz/ms-customerproduct:v1
     container_name: ms-customerproduct
     ports:
       - "8082:8080"
     depends_on:
-      - db_customerProduct
+      - ms-configserver
+      - ms-discovery
+      - ms-api-gateway
       - ms-customer
-      - db_product
+      - ms-product
+      - db_customerProduct
   db_operation:
     image: mongo
     container_name: db_operation
@@ -91,34 +105,18 @@ services:
       - ms-discovery
       - ms-api-gateway
   ms-operation:
-    image: ms-operation
+    image: pedrodiaz/ms-operation:v1
     container_name: ms-operation
     ports:
       - "8083:8080"
     depends_on:
-      - db_operation
-      - ms-customerproduct
-  db_payment:
-    image: mongo
-    container_name: db_payment
-    environment:
-      - "MONGO_INITDB_DATABASE=db_payment"
-    ports:
-      - "27022:27017"
-    volumes:
-      - ~/Desktop/Bootcamp/Mongodb/db_payment:/data/db
-    depends_on:
       - ms-configserver
       - ms-discovery
       - ms-api-gateway
-  ms-payment:
-    image: ms-payment
-    container_name: ms-payment
-    ports:
-      - "8085:8080"
-    depends_on:
-      - db_payment
+      - ms-customer
+      - ms-product
       - ms-customerproduct
+      - db_operation
   db_shopping:
     image: mongo
     container_name: db_shopping
@@ -133,15 +131,46 @@ services:
       - ms-discovery
       - ms-api-gateway
   ms-shopping:
-    image: ms-shopping
+    image: pedrodiaz/ms-shopping:v1
     container_name: ms-shopping
     ports:
       - "8084:8080"
     depends_on:
-      - db_shopping
+      - ms-configserver
+      - ms-discovery
+      - ms-api-gateway
+      - ms-customer
+      - ms-product
       - ms-customerproduct
+      - db_shopping
+  db_payment:
+    image: mongo
+    container_name: db_payment
+    environment:
+      - "MONGO_INITDB_DATABASE=db_payment"
+    ports:
+      - "27022:27017"
+    volumes:
+      - ~/Desktop/Bootcamp/Mongodb/db_payment:/data/db
+    depends_on:
+      - ms-configserver
+      - ms-discovery
+      - ms-api-gateway
+  ms-payment:
+    image: pedrodiaz/ms-payment:v1
+    container_name: ms-payment
+    ports:
+      - "8085:8080"
+    depends_on:
+      - ms-configserver
+      - ms-discovery
+      - ms-api-gateway
+      - ms-customer
+      - ms-product
+      - ms-customerproduct
+      - db_payment
   ms-querybalance:
-    image: ms-querybalance
+    image: pedrodiaz/ms-querybalance:v1
     container_name: ms-querybalance
     ports:
       - "8086:8080"
@@ -149,11 +178,14 @@ services:
       - ms-configserver
       - ms-discovery
       - ms-api-gateway
+      - ms-customer
+      - ms-product
+      - ms-customerproduct
       - ms-operation
-      - ms-payment
       - ms-shopping
+      - ms-payment
   ms-wiretransfer:
-    image: ms-wiretransfer
+    image: pedrodiaz/ms-wiretransfer:v1
     container_name: ms-wiretransfer
     ports:
       - "8087:8080"
@@ -161,6 +193,10 @@ services:
       - ms-configserver
       - ms-discovery
       - ms-api-gateway
+      - ms-customer
+      - ms-product
+      - ms-customerproduct
       - ms-operation
-      - ms-payment
       - ms-shopping
+      - ms-payment
+      - ms-querybalance
